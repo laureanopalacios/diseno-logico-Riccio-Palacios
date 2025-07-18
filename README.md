@@ -17,51 +17,42 @@ TP de promoción Diseño Lógico, untref 2025
 
 #### **Minimización de funciones:**
 
-- **RegA_we = 1 cuando:**
+- **RegO_we:**
 
-     LDA = 00000100 (¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ x2 ∧ ¬x1 ∧ ¬x0)
+    ¬x4 . ¬x2 . x1 .¬x0         
 
-     LDI = 00000101(¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ x2 ∧ ¬x1 ∧ x0)
-    
+- **RegA_we:**
 
-    
-    *Por propiedad de idempotencia: X v X = X*
-
-     ¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ x2 ∧ ¬x1 ∧ (¬x0 ∨ x0 )
-
-    *Por propiedad del complementario: ¬x0 ∨ x0 = 1*
-
-     ¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ x2 ∧ ¬x1 ∧ 1
-     
-    *Función minimizada:* ¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ x2 ∧ ¬x1
-
-- **RegO_we = 1 cuando:**
-
-    OUT = 00000010 (¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ ¬x2 ∧ x1 ∧ ¬x0)
-
-- **Inm_sel = 1 cuando:**
-
-    LDI = 00000101(¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ x2 ∧ ¬x1 ∧ x0)
+    ¬x4 . x2
 
 - **In_sel = 1 cuando:**
 
-    IN = 00000001(¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ ¬x2 ∧ ¬x1 ∧ x0)
+    ¬x5 . ¬x4 . ¬x2 ¬x1 . x0
 
-- **Regs_we = 1 cuando:**
+- **Inm_sel = 1 cuando:**
 
-    IN  =00000001 (¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ ¬x2 ∧ ¬x1 ∧ x0)
+    x1 . x0
 
-    MOV = 00000011 (¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ ¬x2 ∧ x1 ∧ x0)
 
-    Hay ALU_OP = 0001(¬x7 ∧¬ x6 ∧¬ x5 ∧ x4)
+- **Regs_We:**
+    
+    x5 + x4 + (¬x2 . x0)
 
-    Es SHL o SHR = 001(¬x7 ∧¬ x6 ∧ x5) 
+- **Reg_sel:**
 
-- **Reg_sel = 0 cuando:**
+    x5 + x4 + (x1 + ¬x0)
 
-    IN = 00000001(¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧¬ x3 ∧ ¬x2 ∧ ¬x1 ∧ x0)
+- **ALU(0):**
 
-    LDI = 00000101(¬x7 ∧ ¬x6 ∧ ¬x5 ∧ ¬x4 ∧ ¬x3 ∧ x2 ∧¬ x1 ∧ x0)
+    (x5 + x4) . ¬x0
+
+- **ALU(1):**
+
+    (x5 + x4) . (¬x1 . ¬x0 + ¬x2 . x0)
+
+- **ALU(2):**
+
+    (x5 + x4) . (¬x2 . x0 + ¬x2 . x1 . ¬x0 + x2 . ¬x1 . x0)
 
 ---
 
@@ -70,9 +61,11 @@ TP de promoción Diseño Lógico, untref 2025
 La implementación se encuentra en el archivo Decode.vhd dentro de la carpeta Implementaciones_VHDL:  
 - [Ir a Decode en VHDL](Implementaciones_VHDL/Decode.vhd)
 
-  
-El circuito del decode implementado es un circuito combinacional porque aunque se utilice process, no hay clock por lo tanto el proceso se activa cada vez que cambia instr (las salidas dependen solo del valor actual de instr).
-El estilo descriptivo es algorítmico ya que se utiliza un bloque process con descripciones secuenciales, como el case y asignaciones dentro del proceso. 
+
+Ambos circuitos son de caracter combinacional ya que las salidas estan programadas de modo que dependen unicamente de la señal de entrada INSTR.
+
+La arquitectura "decode_Concurrente" corresponde al estilo de modelado; Flujo de Datos. El modo que se asignan las señales y se moveran los datos del procesador depende de operaciones lógicas, especificamente, las que minimizamos en el punto 1 con ayuda de la tabla.  
+En cambio en "decode_Secuencial" el estilo descriptivo es algorítmico ya que se utiliza un bloque process con descripciones secuenciales, como el case y asignaciones dentro del proceso. 
 
 ---
 
