@@ -14,8 +14,38 @@ entity decode is
     	reg_sel   : out std_logic
 	);
 end entity;
- 
-architecture rtl of decode is
+
+
+architecture decode_Concurrente of decode is
+	begin
+
+		regO_we <= (not instr(4)) AND (not instr(2)) AND instr(1) AND (not instr(0));
+
+		regs_we <= instr(5) OR instr(4) OR ((not instr(2)) AND instr(0));
+		
+		regA_we <= (not instr(4)) AND (instr(2));
+		
+		in_sel <= (not instr(5)) AND (not instr(4)) AND (not instr(2)) AND (not instr(1)) AND instr(0);
+
+		inm_sel <= instr(2) AND instr(0);
+
+		reg_sel <= (not instr(5)) OR (not instr(4)) OR (instr(1) OR (not instr(5)) AND (not instr(0)));
+
+		--ALU: una función para cada bit
+
+		alu_op(0) <= instr(5) OR (instr(4)) AND (not(instr(0)))
+
+		alu_op(1) <= instr(5) OR (instr(4)) AND ( ((not(instr(1))) AND (not(instr(0)))) OR (not(instr(2)) AND instr(0)) )
+
+		alu_op(2) <= instr(5) OR (instr(4)) AND ( (not(instr(2))) AND instr(0)
+											 	OR (not(instr(2))) AND instr(1) AND (not(instr(0)))
+											 	OR instr(2) AND (not(instr(1))) AND (not(instr(0)))
+											 )
+	
+end architecture decode_Concurrente;
+
+
+architecture decode_secuencial of decode is
 begin
  
 	process(instr)
@@ -87,5 +117,5 @@ begin
 		
 	end process;
  
-end architecture;
+end architecture decode_secuencial;
 

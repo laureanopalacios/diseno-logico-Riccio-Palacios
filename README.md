@@ -114,55 +114,56 @@ Reg_out  para enviar el resultado final.
 
 **Paso 1:** Leer el input y como es el 1er número, moverlo directamente al R[0].
 
-**Sumar 2:**  
+- **Sumar 2:**  
 IN R1 -> R[1]  = 2  
 Mov R0, R1 -> R[0] = 2  
 
-Llamamos a IN: Reg[rd] = IN -> guarda el input en R[1]   
+    Llamamos a IN: Reg[rd] = IN -> guarda el input en R[1]   
 Ejecutamos MOV: Reg[rd] = Reg[rs] -> movemos el dato de R[1] a [R0]
+
 
 **Paso 2:** Seguir leyendo el input pero ahora sí, ejecutando la suma.
 
-**Sumar 5:**  
+- **Sumar 5:**  
 IN R1 -> R[1] = 5  
 LDA R1 -> Reg_A = 5  
 ADD R[0], R[0] -> R[0] = R[0] + Reg_a  
 
-Se lee el input, se envía al Reg_A y se llama a la instrucción ADD cuya descripción era: Reg[rd] = Reg[rs] + Reg_A.   
-De este modo se guarda en R[0] la suma entre R[0] y Reg_A.
+    Se lee el input, se envía al Reg_A y se llama a la instrucción ADD cuya descripción era: Reg[rd] = Reg[rs] + Reg_A.   
+    De este modo se guarda en R[0] la suma entre R[0] y Reg_A.
 
 
-**Sumar 1:**  
-IN R1 -> R[1] = 1  
-LDA R1 -> Reg_A = 1  
-ADD R[0], R[0] -> R[0] = R[0] + Reg_a (7 + 1 = 8)  
+- **Sumar 1:**  
+    IN R1 -> R[1] = 1  
+    LDA R1 -> Reg_A = 1  
+    ADD R[0], R[0] -> R[0] = R[0] + Reg_a (7 + 1 = 8)  
 
-**Sumar 8:**  
-IN R1 -> R[1] = 8  
-LDA R1 -> Reg_A = 8  
-ADD R[0], R[0] -> R[0] = R[0] + Reg_a (8 + 8 = 16)  
+- **Sumar 8:**  
+    IN R1 -> R[1] = 8  
+    LDA R1 -> Reg_A = 8  
+    ADD R[0], R[0] -> R[0] = R[0] + Reg_a (8 + 8 = 16)  
 
-**Sumar 9:**  
-IN R1 -> R[1] = 9  
-LDA R1 -> Reg_A =  9  
-ADD R[0], R[0] -> R[0] = R[0] + Reg_a (16 + 9 = 25)  
+- **Sumar 9:**  
+ IN R1 -> R[1] = 9  
+ LDA R1 -> Reg_A =  9  
+ ADD R[0], R[0] -> R[0] = R[0] + Reg_a (16 + 9 = 25)  
 
-**Sumar 13:**  
-IN R1 -> R[1] = 13  
-LDA R1 -> Reg_A = 13  
-ADD R[0], R[0] -> R[0] = R[0] + Reg_a (25 + 13 = 38)  
+- **Sumar 13:**  
+ IN R1 -> R[1] = 13  
+    LDA R1 -> Reg_A = 13  
+    ADD R[0], R[0] -> R[0] = R[0] + Reg_a (25 + 13 = 38)  
 
-**Sumar 64**  
-IN R1 -> R[1] = 64  
-LDA R1 -> Reg_A = 64  
-ADD R[0], R[0] -> R[0] = R[0] + Reg_a (38 + 64 = 102)  
+- **Sumar 64**  
+    IN R1 -> R[1] = 64  
+    LDA R1 -> Reg_A = 64  
+    ADD R[0], R[0] -> R[0] = R[0] + Reg_a (38 + 64 = 102)  
 
 **Paso 3:** El procesador envía el valor de la suma.
 
-OUT R0  
+-   OUT R0  
 
-Se llama a la instrucción OUT de descripción: Reg_out = Reg[rs].  
-De este modo guardaremos el dato de R[0] (nuestra suma) en el registro de salida.
+    Se llama a la instrucción OUT de descripción: Reg_out = Reg[rs].  
+    De este modo guardaremos el dato de R[0] (nuestra suma) en el registro de salida.
 
 **5a)** Tabla con contenido ROM:
 - ![Tabla ROM punto 5](imagenes/TablaPunto5.png)
